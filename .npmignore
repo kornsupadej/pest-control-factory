@@ -4,7 +4,9 @@
 # ci
 /.changeset
 /.github
+/.husky
 
 # etc.
 CHANGELOG.md
 desktop.ini
+eslint.config.js

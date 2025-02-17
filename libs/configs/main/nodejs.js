@@ -30,14 +30,48 @@ class NodeJSConfig extends ESLintConfig {
    * @method
    * @name _buildTSLintConfig
    *
-   * @returns {import("eslint").Linter.Config}
+   * @returns {import("eslint").Linter.Config[]}
    */
   _buildTSLintConfig() {
-    // TODO: implement TS Config
-    // - parser, rules
+    const ts = require("typescript-eslint");
     return {
-      parser: {},
-      rules: {},
+      ...ts.configs.recommendedTypeChecked,
+      languageOptions: {
+        parser: ts.parser,
+        parserOptions: {
+          project: ["tsconfig?(.*).json"],
+          projectService: true,
+          tsconfigRootDir: import.meta.dirname,
+        },
+      },
+      plugins: {
+        "@typescript-eslint": ts.plugin,
+      },
+      rules: {
+        ...ts.configs.recommendedTypeChecked.rules,
+        "@typescript-eslint/no-misused-promises": [
+          "error",
+          {
+            checksVoidReturn: false,
+            checksConditionals: false,
+          },
+        ],
+        "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/no-unsafe-assignment": "off",
+        "@typescript-eslint/no-unsafe-call": "off",
+        "@typescript-eslint/no-unsafe-member-access": "off",
+        "@typescript-eslint/no-unsafe-function-type": "off",
+        "@typescript-eslint/no-unsafe-argument": "off",
+        "@typescript-eslint/no-unsafe-return": "off",
+        "@typescript-eslint/no-unused-expressions": "off",
+        "@typescript-eslint/no-require-imports": "off",
+        "@typescript-eslint/no-unused-vars": "off",
+        "@typescript-eslint/require-await": "off",
+        "@typescript-eslint/prefer-promise-reject-errors": "off",
+        "@typescript-eslint/no-base-to-string": "off",
+        "@typescript-eslint/unbound-method": "off",
+        "@typescript-eslint/only-throw-error": "off",
+      },
     };
   }
 
@@ -51,19 +85,22 @@ class NodeJSConfig extends ESLintConfig {
   _buildLintConfig() {
     const { files, ignores, languageOptions, rules } = this.linterOptions;
 
-    const tsLintConfig = this._buildTSLintConfig();
+    const tsConfig = this.typescript ? this._buildTSLintConfig() : {};
     return {
       name: "pest-control/nodejs",
       files: [ALL_JS_FILES, ...files],
       ignores: [...BASIC_IGNORES, ...ignores],
+      ...(tsConfig.plugins && { plugins: tsConfig.plugins }),
       languageOptions: {
         globals: {
           ...globals.node,
         },
+        ...(tsConfig.languageOptions && { ...tsConfig.languageOptions }),
         ...languageOptions,
       },
       rules: {
         ...js.configs.recommended.rules,
+        ...(tsConfig.rules && { ...tsConfig.rules }),
         ...rules,
       },
     };
