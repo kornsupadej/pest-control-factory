@@ -1,3 +1,5 @@
+import chalk from "chalk";
+
 /**
  * @class
  * @classdesc Parant class for resolving configs
@@ -19,7 +21,10 @@ class ESLintConfig {
    * @returns {import("eslint").Linter.Config[]}
    */
   getESLintFlatConfig() {
-    // TODO: logging error on on supported | indefined linter
+    console.log(
+      chalk.bgRed(" ERROR "),
+      chalk.red("No primary linter config was applied.")
+    );
     return [];
   }
 }

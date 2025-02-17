@@ -28,7 +28,7 @@ class FormattingConfig extends ESLintConfig {
    * @returns {import("eslint").Linter.Config[]}
    */
   getESLintFlatConfig() {
-    const { files, ignores, languageOptions, rules } = super.linterOptions;
+    const { files, ignores, languageOptions, rules } = this.linterOptions;
     return [
       {
         ...eslintPluginImportX.flatConfigs.recommended,

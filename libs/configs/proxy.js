@@ -1,3 +1,5 @@
+import chalk from "chalk";
+
 import ESLintConfig from "./index.js";
 import NodeJSConfig from "./main/nodejs.js";
 
@@ -37,9 +39,21 @@ class ConfigProxy {
 
   /**
    * @private
-   * @return {import('./index').default} eslintConfigInstance
+   * @return {import('./index')} classInstance
    */
   _resolveModuleInstance() {
+    const supported = Object.keys(configClasses).includes(
+      this.linterConfig.type
+    );
+    if (!supported) {
+      console.log(
+        chalk.bgRed(" ERROR "),
+        chalk.red(
+          `Linter for "${this.linterConfig.type}" is not yet supported.`
+        )
+      );
+      this.linterConfig.type = "default";
+    }
     return new configClasses[this.linterConfig.type](
       this.linterConfig.options,
       this.typescript
