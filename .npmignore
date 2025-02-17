@@ -1,0 +1,10 @@
+# source & packages
+/node_modules
+
+# ci
+/.changeset
+/.github
+
+# etc.
+CHANGELOG.md
+desktop.ini
