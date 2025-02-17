@@ -4,13 +4,7 @@ import eslintPluginNode from "eslint-plugin-n";
 
 import ESLintConfig from "../index.js";
 
-const ALL_JS_FILES = "**/*.{js,mjs,cjs,ts,mts,cts}";
-const BASIC_IGNORES = [
-  "**/node_modules/",
-  "**/dist/",
-  "**/*.d.ts",
-  "eslint.config.{js,mjs,cjs,ts,mts,cts}",
-];
+import { GLOB_PATTERNS } from "../../constants.js";
 
 /**
  * @extends ESLintConfig
@@ -84,12 +78,11 @@ class NodeJSConfig extends ESLintConfig {
    */
   _buildLintConfig() {
     const { files, ignores, languageOptions, rules } = this.linterOptions;
-
     const tsConfig = this.typescript ? this._buildTSLintConfig() : {};
     return {
       name: "pest-control/nodejs",
-      files: [ALL_JS_FILES, ...files],
-      ignores: [...BASIC_IGNORES, ...ignores],
+      files: [GLOB_PATTERNS.ALL_BASE_EXTENSION_FILES, ...files],
+      ignores: [...GLOB_PATTERNS.BASIC_IGNORE_PATHS, ...ignores],
       ...(tsConfig.plugins && { plugins: tsConfig.plugins }),
       languageOptions: {
         globals: {

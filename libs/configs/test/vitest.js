@@ -2,7 +2,7 @@ import vitest from "@vitest/eslint-plugin";
 
 import ESLintConfig from "../index.js";
 
-const ALL_TEST_FILES = "**/*.?(e2e-){test,spec}.{js,ts}";
+import { GLOB_PATTERNS } from "../../constants.js";
 
 /**
  * @extends ESLintConfig
@@ -29,7 +29,7 @@ class VitestConfig extends ESLintConfig {
         languageOptions: {
           globals: vitest.environments.env.globals,
         },
-        files: [...ALL_TEST_FILES, ...files],
+        files: [...GLOB_PATTERNS.ALL_TEST_FILES, ...files],
         ...(ignores && { ignores }),
         ...(Object.keys(languageOptions).length && { languageOptions }),
         plugins: {

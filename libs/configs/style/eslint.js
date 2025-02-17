@@ -2,13 +2,7 @@ import eslintPluginImportX from "eslint-plugin-import-x";
 
 import ESLintConfig from "../index.js";
 
-const ALL_JS_FILES = "**/*.{js,mjs,cjs,ts,mts,cts}";
-const BASIC_IGNORES = [
-  "**/node_modules/",
-  "**/dist/",
-  "**/*.d.ts",
-  "eslint.config.{js,mjs,cjs,ts,mts,cts}",
-];
+import { GLOB_PATTERNS } from "../../constants.js";
 
 /**
  * @extends ESLintConfig
@@ -24,18 +18,62 @@ class FormattingConfig extends ESLintConfig {
   }
 
   /**
+   * @private
+   * @method
+   * @name _buildTSLintConfig
+   *
+   * @returns {import("eslint").Linter.Config[]}
+   */
+  _buildTSLintConfig() {
+    const ts = require("typescript-eslint");
+    return {
+      languageOptions: {
+        parser: ts.parser,
+      },
+    };
+  }
+
+  /**
+   * @private
+   * @method
+   * @name _buildLanguageOptions
+   *
+   * @returns {import("eslint").Linter.Config[]}
+   */
+  _buildLanguageOptions() {
+    const { languageOptions } = this.linterOptions;
+    const options = {};
+    if (Object.keys(languageOptions).length) {
+      Object.assign(options, {
+        languageOptions: {
+          ...languageOptions,
+        },
+      });
+    }
+    if (this.typescript) {
+      Object.assign(options, {
+        languageOptions: {
+          ...this._buildTSLintConfig().languageOptions,
+        },
+      });
+    }
+    return options;
+  }
+
+  /**
    * @override
    * @returns {import("eslint").Linter.Config[]}
    */
   getESLintFlatConfig() {
-    const { files, ignores, languageOptions, rules } = this.linterOptions;
+    const { files, ignores, rules } = this.linterOptions;
     return [
       {
         ...eslintPluginImportX.flatConfigs.recommended,
+        ...(this.typescript && eslintPluginImportX.flatConfigs.typescript),
         name: "pest-control/formatting",
-        files: [ALL_JS_FILES, ...files],
-        ignores: [...BASIC_IGNORES, ...ignores],
-        ...(Object.keys(languageOptions).length && { languageOptions }),
+        files: [GLOB_PATTERNS.ALL_BASE_EXTENSION_FILES, ...files],
+        ignores: [...GLOB_PATTERNS.BASIC_IGNORE_PATHS, ...ignores],
+        ...this._buildLanguageOptions(),
         rules: {
           ...eslintPluginImportX.flatConfigs.recommended.rules,
           "no-multiple-empty-lines": [

@@ -2,7 +2,7 @@ import jest from "eslint-plugin-jest";
 
 import ESLintConfig from "../index.js";
 
-const ALL_TEST_FILES = "**/*.?(e2e-){test,spec}.{js,ts}";
+import { GLOB_PATTERNS } from "../../constants.js";
 
 /**
  * @extends ESLintConfig
@@ -29,7 +29,7 @@ class JestConfig extends ESLintConfig {
         languageOptions: {
           globals: jest.environments.globals.globals,
         },
-        files: [...ALL_TEST_FILES, ...files],
+        files: [...GLOB_PATTERNS.ALL_TEST_FILES, ...files],
         ...(ignores && { ignores }),
         ...(Object.keys(languageOptions).length && { languageOptions }),
         plugins: {
