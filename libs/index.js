@@ -1,4 +1,4 @@
-import ConfigProxy from "./configs/proxy.js";
+import ConfigProxy from './configs/proxy.js'
 
 /** @type {import('./index').formulatePesticide} */
 function formulatePesticide(options = {}) {
@@ -15,12 +15,12 @@ function formulatePesticide(options = {}) {
       options.styleLinter,
       options.typescript
     ).resolveESLintConfig(),
-  };
+  }
   return [
     ...eslintConfigObject.main,
     ...eslintConfigObject.test,
     ...eslintConfigObject.style,
-  ];
+  ]
 }
 
-export { formulatePesticide };
+export { formulatePesticide }

@@ -1,8 +1,8 @@
-import eslintPluginImportX from "eslint-plugin-import-x";
+import eslintPluginImportX from 'eslint-plugin-import-x'
 
-import ESLintConfig from "../index.js";
+import ESLintConfig from '../index.js'
 
-import { GLOB_PATTERNS } from "../../constants.js";
+import { GLOB_PATTERNS } from '../../constants.js'
 
 /**
  * @extends ESLintConfig
@@ -14,7 +14,7 @@ class FormattingConfig extends ESLintConfig {
    * @param {boolean} typescript
    */
   constructor(linterOptions, typescript) {
-    super(linterOptions, typescript);
+    super(linterOptions, typescript)
   }
 
   /**
@@ -25,12 +25,12 @@ class FormattingConfig extends ESLintConfig {
    * @returns {import("eslint").Linter.Config[]}
    */
   _buildTSLintConfig() {
-    const ts = require("typescript-eslint");
+    const ts = require('typescript-eslint')
     return {
       languageOptions: {
         parser: ts.parser,
       },
-    };
+    }
   }
 
   /**
@@ -41,23 +41,23 @@ class FormattingConfig extends ESLintConfig {
    * @returns {import("eslint").Linter.Config[]}
    */
   _buildLanguageOptions() {
-    const { languageOptions } = this.linterOptions;
-    const options = {};
+    const { languageOptions } = this.linterOptions
+    const options = {}
     if (Object.keys(languageOptions).length) {
       Object.assign(options, {
         languageOptions: {
           ...languageOptions,
         },
-      });
+      })
     }
     if (this.typescript) {
       Object.assign(options, {
         languageOptions: {
           ...this._buildTSLintConfig().languageOptions,
         },
-      });
+      })
     }
-    return options;
+    return options
   }
 
   /**
@@ -65,51 +65,51 @@ class FormattingConfig extends ESLintConfig {
    * @returns {import("eslint").Linter.Config[]}
    */
   getESLintFlatConfig() {
-    const { files, ignores, rules } = this.linterOptions;
+    const { files, ignores, rules } = this.linterOptions
     return [
       {
         ...eslintPluginImportX.flatConfigs.recommended,
         ...(this.typescript && eslintPluginImportX.flatConfigs.typescript),
-        name: "pest-control/formatting",
+        name: 'pest-control/formatting',
         files: [GLOB_PATTERNS.ALL_BASE_EXTENSION_FILES, ...files],
         ignores: [...GLOB_PATTERNS.BASIC_IGNORE_PATHS, ...ignores],
         ...this._buildLanguageOptions(),
         rules: {
           ...eslintPluginImportX.flatConfigs.recommended.rules,
-          "no-multiple-empty-lines": [
-            "error",
+          'no-multiple-empty-lines': [
+            'error',
             {
               max: 1,
               maxEOF: 1,
               maxBOF: 0,
             },
           ],
-          "import-x/first": "error",
-          "import-x/newline-after-import": [
-            "error",
+          'import-x/first': 'error',
+          'import-x/newline-after-import': [
+            'error',
             {
               count: 1,
               exactCount: true,
               considerComments: false,
             },
           ],
-          "import-x/order": [
-            "error",
+          'import-x/order': [
+            'error',
             {
               alphabetize: {
-                order: "asc",
+                order: 'asc',
                 caseInsensitive: true,
               },
-              "newlines-between": "always",
-              groups: ["builtin", "external", "parent", "sibling", "index"],
+              'newlines-between': 'always',
+              groups: ['builtin', 'external', 'parent', 'sibling', 'index'],
             },
           ],
-          "import-x/exports-last": "error",
-          "import-x/group-exports": "error",
+          'import-x/exports-last': 'error',
+          'import-x/group-exports': 'error',
           ...rules,
         },
       },
-    ];
+    ]
   }
 }
-export default FormattingConfig;
+export default FormattingConfig

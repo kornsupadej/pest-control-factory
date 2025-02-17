@@ -10,8 +10,8 @@ class ESLintConfig {
    * @param {boolean} typescript
    */
   constructor(linterOptions, typescript) {
-    this.linterOptions = linterOptions;
-    this.typescript = typescript;
+    this.linterOptions = linterOptions
+    this.typescript = typescript
   }
 
   /**
@@ -19,7 +19,7 @@ class ESLintConfig {
    * @returns {import("eslint").Linter.Config[]}
    */
   getESLintFlatConfig() {
-    return [];
+    return []
   }
 }
-export default ESLintConfig;
+export default ESLintConfig

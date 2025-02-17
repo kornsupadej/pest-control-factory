@@ -1,13 +1,13 @@
-import chalk from "chalk";
+import chalk from 'chalk'
 
-import ESLintConfig from "./index.js";
-import NodeJSConfig from "./main/nodejs.js";
+import ESLintConfig from './index.js'
+import NodeJSConfig from './main/nodejs.js'
 
-import JestConfig from "./test/jest.js";
-import VitestConfig from "./test/vitest.js";
+import JestConfig from './test/jest.js'
+import VitestConfig from './test/vitest.js'
 
-import FormattingConfig from "./style/eslint.js";
-import PrettierConfig from "./style/prettier.js";
+import FormattingConfig from './style/eslint.js'
+import PrettierConfig from './style/prettier.js'
 
 const configClasses = Object.freeze({
   default: ESLintConfig,
@@ -16,7 +16,7 @@ const configClasses = Object.freeze({
   vitest: VitestConfig,
   eslint: FormattingConfig,
   prettier: PrettierConfig,
-});
+})
 
 class ConfigProxy {
   /**
@@ -26,15 +26,15 @@ class ConfigProxy {
    */
   constructor(linterConfig, typescript) {
     this.linterConfig = {
-      type: linterConfig?.type || "default",
+      type: linterConfig?.type || 'default',
       options: {
         files: linterConfig?.options?.files || [],
         ignores: linterConfig?.options?.ignores || [],
         languageOptions: linterConfig?.options?.languageOptions || {},
         rules: linterConfig?.options?.rules || {},
       },
-    };
-    this.typescript = typescript || false;
+    }
+    this.typescript = typescript || false
   }
 
   /**
@@ -44,28 +44,28 @@ class ConfigProxy {
   _resolveModuleInstance() {
     const supported = Object.keys(configClasses).includes(
       this.linterConfig.type
-    );
+    )
     if (!supported) {
       console.log(
-        chalk.bgRed(" ERROR "),
+        chalk.bgRed(' ERROR '),
         chalk.red(
           `Linter for "${this.linterConfig.type}" is not yet supported.`
         )
-      );
-      this.linterConfig.type = "default";
+      )
+      this.linterConfig.type = 'default'
     }
     return new configClasses[this.linterConfig.type](
       this.linterConfig.options,
       this.typescript
-    );
+    )
   }
 
   /**
    * @type {import('eslint').Linter.Config[]}
    */
   resolveESLintConfig() {
-    const moduleInstance = this._resolveModuleInstance();
-    return moduleInstance.getESLintFlatConfig();
+    const moduleInstance = this._resolveModuleInstance()
+    return moduleInstance.getESLintFlatConfig()
   }
 }
-export default ConfigProxy;
+export default ConfigProxy

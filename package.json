@@ -14,14 +14,19 @@
   "private": false,
   "type": "module",
   "scripts": {
+    "test": "vitest",
+    "test:coverage": "vitest run --coverage",
     "lint": "eslint \"{src,apps,libs,test}/**/*.{js,ts}\"",
+    "lint:fix": "eslint \"{src,apps,libs,test}/**/*.{js,ts}\" --fix",
+    "format": "prettier \"**/*.{js,ts,json,yml,yaml}\" --write",
+    "format:check": "prettier \"**/*.{js,ts,json,yml,yaml}\" --check",
     "ci": "pnpm run lint",
     "prepare": "husky",
     "release": "pnpm run lint && changeset publish",
     "version-package": "changeset version"
   },
   "lint-staged": {
-    "*.{js,mjs,cjs,ts}": "pnpm lint"
+    "*.{js,mjs,cjs,ts,mts,cts}": "pnpm lint"
   },
   "dependencies": {
     "chalk": "^5.4.1"
@@ -40,8 +45,10 @@
     "globals": "^15.14.0",
     "husky": "^9.1.7",
     "lint-staged": "^15.4.3",
+    "prettier": "^3.5.1",
     "typescript": "^5.7.3",
-    "typescript-eslint": "^8.24.0"
+    "typescript-eslint": "^8.24.0",
+    "vitest": "^3.0.5"
   },
   "peerDependencies": {
     "@eslint/js": ">=9.19.0",
@@ -61,6 +68,9 @@
       "optional": true
     },
     "eslint-config-prettier": {
+      "optional": true
+    },
+    "eslint-import-resolver-typescript": {
       "optional": true
     },
     "eslint-plugin-import-x": {

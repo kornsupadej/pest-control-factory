@@ -1,8 +1,8 @@
-import vitest from "@vitest/eslint-plugin";
+import vitest from '@vitest/eslint-plugin'
 
-import ESLintConfig from "../index.js";
+import ESLintConfig from '../index.js'
 
-import { GLOB_PATTERNS } from "../../constants.js";
+import { GLOB_PATTERNS } from '../../constants.js'
 
 /**
  * @extends ESLintConfig
@@ -14,7 +14,7 @@ class VitestConfig extends ESLintConfig {
    * @param {boolean} typescript
    */
   constructor(linterOptions, typescript) {
-    super(linterOptions, typescript);
+    super(linterOptions, typescript)
   }
 
   /**
@@ -22,10 +22,10 @@ class VitestConfig extends ESLintConfig {
    * @returns {import("eslint").Linter.Config[]}
    */
   getESLintFlatConfig() {
-    const { files, ignores, languageOptions, rules } = this.linterOptions;
+    const { files, ignores, languageOptions, rules } = this.linterOptions
     return [
       {
-        name: "pest-control/vitest",
+        name: 'pest-control/vitest',
         languageOptions: {
           globals: vitest.environments.env.globals,
         },
@@ -37,14 +37,14 @@ class VitestConfig extends ESLintConfig {
         },
         rules: {
           ...vitest.configs.recommended.rules,
-          "vitest/consistent-test-it": ["error", { fn: "test" }],
-          "vitest/valid-title": "error",
-          "vitest/no-done-callback": "error",
-          "vitest/expect-expect": "off",
+          'vitest/consistent-test-it': ['error', { fn: 'test' }],
+          'vitest/valid-title': 'error',
+          'vitest/no-done-callback': 'error',
+          'vitest/expect-expect': 'off',
           ...rules,
         },
       },
-    ];
+    ]
   }
 }
-export default VitestConfig;
+export default VitestConfig

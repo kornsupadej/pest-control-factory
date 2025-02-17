@@ -1,8 +1,8 @@
-import jest from "eslint-plugin-jest";
+import jest from 'eslint-plugin-jest'
 
-import ESLintConfig from "../index.js";
+import ESLintConfig from '../index.js'
 
-import { GLOB_PATTERNS } from "../../constants.js";
+import { GLOB_PATTERNS } from '../../constants.js'
 
 /**
  * @extends ESLintConfig
@@ -14,7 +14,7 @@ class JestConfig extends ESLintConfig {
    * @param {boolean} typescript
    */
   constructor(linterOptions, typescript) {
-    super(linterOptions, typescript);
+    super(linterOptions, typescript)
   }
 
   /**
@@ -22,10 +22,10 @@ class JestConfig extends ESLintConfig {
    * @returns {import("eslint").Linter.Config[]}
    */
   getESLintFlatConfig() {
-    const { files, ignores, languageOptions, rules } = this.linterOptions;
+    const { files, ignores, languageOptions, rules } = this.linterOptions
     return [
       {
-        name: "pest-control/jest",
+        name: 'pest-control/jest',
         languageOptions: {
           globals: jest.environments.globals.globals,
         },
@@ -36,15 +36,15 @@ class JestConfig extends ESLintConfig {
           jest,
         },
         rules: {
-          ...jest.configs["flat/recommended"].rules,
-          "jest/consistent-test-it": ["error", { fn: "test" }],
-          "jest/valid-title": "error",
-          "jest/no-done-callback": "error",
-          "jest/expect-expect": "off",
+          ...jest.configs['flat/recommended'].rules,
+          'jest/consistent-test-it': ['error', { fn: 'test' }],
+          'jest/valid-title': 'error',
+          'jest/no-done-callback': 'error',
+          'jest/expect-expect': 'off',
           ...rules,
         },
       },
-    ];
+    ]
   }
 }
-export default JestConfig;
+export default JestConfig
