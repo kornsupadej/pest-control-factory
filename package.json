@@ -1,16 +1,8 @@
 {
   "name": "@kornsupadej/pest-control-factory",
-  "version": "1.0.0",
   "description": "A tool to minimize bug infestation in projects",
-  "type": "module",
-  "scripts": {
-    "lint": "eslint \"{src,apps,libs,test}/**/*.{js,ts}\"",
-    "ci": "pnpm run lint",
-    "prepare": "husky"
-  },
-  "lint-staged": {
-    "*.{js,mjs,cjs,ts}": "pnpm lint"
-  },
+  "author": "Kornsupadej Suvarnakasa",
+  "version": "1.0.0",
   "keywords": [
     "ast",
     "lint",
@@ -18,12 +10,24 @@
     "ecmascript",
     "espree"
   ],
-  "author": "Kornsupadej Suvarnakasa",
   "license": "MIT",
+  "private": false,
+  "type": "module",
+  "scripts": {
+    "lint": "eslint \"{src,apps,libs,test}/**/*.{js,ts}\"",
+    "ci": "pnpm run lint",
+    "prepare": "husky",
+    "release": "pnpm run lint && changeset publish",
+    "version-package": "changeset version"
+  },
+  "lint-staged": {
+    "*.{js,mjs,cjs,ts}": "pnpm lint"
+  },
   "dependencies": {
     "chalk": "^5.4.1"
   },
   "devDependencies": {
+    "@changesets/cli": "^2.27.12",
     "@eslint/js": "^9.19.0",
     "@vitest/eslint-plugin": "^1.1.25",
     "eslint": "^9.19.0",
