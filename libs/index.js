@@ -24,9 +24,3 @@ function formulatePesticide(options = {}) {
 }
 
 export { formulatePesticide };
-
-/**
- * - research topics
- * what is peerDependencies(&Meta)
- * 
- */
