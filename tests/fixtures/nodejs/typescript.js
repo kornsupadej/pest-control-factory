@@ -22,7 +22,7 @@ export const typescriptFixture = [
       parserOptions: {
         project: ['tsconfig?(.*).json'],
         projectService: true,
-        tsconfigRootDir: import.meta.dirname,
+        tsconfigRootDir: process.cwd(),
       },
     },
     rules: {

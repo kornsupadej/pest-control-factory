@@ -14,7 +14,7 @@ describe('#JestConfig', () => {
     expect(result).toEqual(baseFixture)
   })
 
-  test.skip('return extended result correctly', () => {
+  test('return extended result correctly', () => {
     const instance = new JestConfig(
       {
         files: ['**/*.testfilepathext'],

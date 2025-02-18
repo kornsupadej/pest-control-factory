@@ -14,17 +14,17 @@
   "private": false,
   "type": "module",
   "scripts": {
-    "test:dev": "vitest",
     "test": "vitest run",
+    "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
     "lint": "eslint \"{src,apps,libs,test}/**/*.{js,ts}\"",
     "lint:fix": "eslint \"{src,apps,libs,test}/**/*.{js,ts}\" --fix",
     "format": "prettier \"**/*.{js,ts,json,yml,yaml}\" --write",
     "format:check": "prettier \"**/*.{js,ts,json,yml,yaml}\" --check",
-    "ci": "pnpm run lint",
-    "prepare": "husky",
-    "release": "pnpm run lint && changeset publish",
-    "version-package": "changeset version"
+    "ci": "pnpm lint",
+    "release": "pnpm lint && changeset publish",
+    "version-package": "changeset version",
+    "prepare": "husky"
   },
   "lint-staged": {
     "*.{js,mjs,cjs,ts,mts,cts}": "pnpm lint"

@@ -6,7 +6,7 @@ export const extendedFixture = [
   {
     name: 'pest-control/jest',
     files: [...GLOB_PATTERNS.ALL_TEST_FILES, '**/*.testfilepathext'],
-    ignore: ['**/*.testignorepathext'],
+    ignores: ['**/*.testignorepathext'],
     languageOptions: {
       globals: jest.environments.globals.globals,
       foo: 'bar',

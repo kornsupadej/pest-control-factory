@@ -39,7 +39,7 @@ describe('#NodeJSConfig', () => {
     expect(result).toEqual(extendedFixture)
   })
 
-  test.skip('return typescript result correctly', () => {
+  test('return typescript result correctly', () => {
     const instance = new NodeJSConfig(
       {
         files: [],

@@ -29,13 +29,12 @@ class NodeJSConfig extends ESLintConfig {
   _buildTSLintConfig() {
     const ts = require('typescript-eslint')
     return {
-      ...ts.configs.recommendedTypeChecked,
       languageOptions: {
         parser: ts.parser,
         parserOptions: {
           project: ['tsconfig?(.*).json'],
           projectService: true,
-          tsconfigRootDir: import.meta.dirname,
+          tsconfigRootDir: process.cwd(),
         },
       },
       plugins: {

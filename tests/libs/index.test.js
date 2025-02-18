@@ -2,6 +2,7 @@ import { vi, describe, test, expect } from 'vitest'
 
 import ConfigProxy from '../../libs/configs/proxy'
 import { formulatePesticide } from '../../libs'
+import { SUPPORTED_TYPES } from '../../libs/constants'
 
 describe('#formulatePesticide', () => {
   test('return empty array if linter.type is not provided', () => {
@@ -21,7 +22,7 @@ describe('#formulatePesticide', () => {
     )
     formulatePesticide({
       linter: {
-        type: 'nodejs',
+        type: [SUPPORTED_TYPES.NODEJS],
       },
     })
     expect(configProxySpy).toBeCalledTimes(3)

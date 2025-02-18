@@ -14,7 +14,7 @@ describe('#VitestConfig', () => {
     expect(result).toEqual(baseFixture)
   })
 
-  test.skip('return extended result correctly', () => {
+  test('return extended result correctly', () => {
     const instance = new VitestConfig(
       {
         files: ['**/*.testfilepathext'],
