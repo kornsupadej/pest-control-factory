@@ -21,7 +21,6 @@
     "lint:fix": "eslint \"{src,apps,libs,test}/**/*.{js,ts}\" --fix",
     "format": "prettier \"**/*.{js,ts,json,yml,yaml}\" --write",
     "format:check": "prettier \"**/*.{js,ts,json,yml,yaml}\" --check",
-    "ci": "pnpm lint",
     "release": "pnpm lint && changeset publish",
     "version-package": "changeset version",
     "prepare": "husky"
