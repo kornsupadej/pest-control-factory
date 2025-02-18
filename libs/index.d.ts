@@ -28,7 +28,7 @@ export type CreateESLintConfigOptions = {
    * code-quality analysis appropriately
    * based on your project contruction & purposes
    */
-  linter: LinterOptions<LinterTypes>
+  linter: LinterConfig<LinterTypes>
   /**
    * this option is crucial for eslint to perform
    * code-formatting (convention) appropriately
@@ -38,12 +38,12 @@ export type CreateESLintConfigOptions = {
    *    otherwise it will just shout at you
    *    and you have to fix it manually.
    */
-  styleLinter?: LinterOptions<StyleLinterTypes>
+  styleLinter?: LinterConfig<StyleLinterTypes>
   /**
    * enable linting rules based on your testing framework
    * (i,e) jest, mocha, vitest etc.
    */
-  testLinter?: LinterOptions<TestLinterTypes>
+  testLinter?: LinterConfig<TestLinterTypes>
   /**
    * enable this if the project is using typescript to ensure
    * a consistent behavior of eslint in your project
