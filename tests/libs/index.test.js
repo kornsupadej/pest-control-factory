@@ -1,7 +1,7 @@
-import { vi, describe, test, expect } from 'vitest'
+import { describe, expect, test, vi } from 'vitest'
 
-import ConfigProxy from '../../libs/configs/proxy'
 import { formulatePesticide } from '../../libs'
+import ConfigProxy from '../../libs/configs/proxy'
 import { SUPPORTED_TYPES } from '../../libs/constants'
 
 describe('#formulatePesticide', () => {

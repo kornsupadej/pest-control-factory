@@ -1,8 +1,7 @@
 import jest from 'eslint-plugin-jest'
 
-import ESLintConfig from '../index.js'
-
 import { GLOB_PATTERNS } from '../../constants.js'
+import ESLintConfig from '../index.js'
 
 /**
  * @extends ESLintConfig

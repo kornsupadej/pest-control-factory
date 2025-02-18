@@ -1,15 +1,12 @@
 import chalk from 'chalk'
 
+import { SUPPORTED_TYPES } from '../constants.js'
 import ESLintConfig from './index.js'
 import NodeJSConfig from './main/nodejs.js'
-
-import JestConfig from './test/jest.js'
-import VitestConfig from './test/vitest.js'
-
 import FormattingConfig from './style/eslint.js'
 import PrettierConfig from './style/prettier.js'
-
-import { SUPPORTED_TYPES } from '../constants.js'
+import JestConfig from './test/jest.js'
+import VitestConfig from './test/vitest.js'
 
 const configClasses = Object.freeze({
   default: ESLintConfig,
@@ -55,7 +52,7 @@ class ConfigProxy {
       this.linterConfig.type
     )
     if (!supported) {
-      console.log(
+      console.error(
         chalk.bgRed(' ERROR '),
         chalk.red(
           `Linter for "${this.linterConfig.type}" is not yet supported.`

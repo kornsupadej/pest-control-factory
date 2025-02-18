@@ -1,4 +1,4 @@
-import { describe, test, expect } from 'vitest'
+import { describe, expect, test } from 'vitest'
 
 import JestConfig from '../../../../libs/configs/test/jest'
 import { baseFixture } from '../../../fixtures/jest/base'

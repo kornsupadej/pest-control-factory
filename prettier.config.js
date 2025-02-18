@@ -8,4 +8,9 @@ export default {
   semi: false,
   arrowParens: 'avoid',
   endOfLine: 'lf',
+  plugins: ['@trivago/prettier-plugin-sort-imports'],
+  importOrderParserPlugins: ['typescript', 'decorators-legacy'],
+  importOrder: ['<THIRD_PARTY_MODULES>', '^[./]'],
+  importOrderSeparation: true,
+  importOrderSortSpecifiers: true,
 }

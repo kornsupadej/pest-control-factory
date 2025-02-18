@@ -1,7 +1,6 @@
-import { describe, test, expect } from 'vitest'
+import { describe, expect, test } from 'vitest'
 
 import NodeJSConfig from '../../../../libs/configs/main/nodejs'
-
 import { baseFixture } from '../../../fixtures/nodejs/base'
 import { extendedFixture } from '../../../fixtures/nodejs/extended'
 import { typescriptFixture } from '../../../fixtures/nodejs/typescript'

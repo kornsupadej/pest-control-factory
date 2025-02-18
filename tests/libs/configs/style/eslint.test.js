@@ -1,4 +1,4 @@
-import { describe, test, expect } from 'vitest'
+import { describe, expect, test } from 'vitest'
 
 import FormattingConfig from '../../../../libs/configs/style/eslint'
 import { baseFixture } from '../../../fixtures/eslint/base'

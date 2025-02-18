@@ -1,10 +1,9 @@
 import js from '@eslint/js'
-import globals from 'globals'
 import eslintPluginNode from 'eslint-plugin-n'
-
-import ESLintConfig from '../index.js'
+import globals from 'globals'
 
 import { GLOB_PATTERNS } from '../../constants.js'
+import ESLintConfig from '../index.js'
 
 /**
  * @extends ESLintConfig

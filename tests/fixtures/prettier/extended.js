@@ -1,5 +1,5 @@
-import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended'
 import eslintPluginImportX from 'eslint-plugin-import-x'
+import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended'
 
 import { GLOB_PATTERNS } from '../../../libs/constants'
 

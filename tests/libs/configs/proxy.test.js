@@ -1,19 +1,18 @@
-import { describe, test, expect, vi, afterEach } from 'vitest'
-
-import ConfigProxy from '../../../libs/configs/proxy'
-import { baseFixture as nodejsBaseFixture } from '../../fixtures/nodejs/base'
-import { baseFixture as eslintBaseFixture } from '../../fixtures/eslint/base'
-import { baseFixture as prettierBaseFixture } from '../../fixtures/prettier/base'
-import { baseFixture as jestBaseFixture } from '../../fixtures/jest/base'
-import { baseFixture as vitestBaseFixture } from '../../fixtures/vitest/base'
-import { SUPPORTED_TYPES } from '../../../libs/constants'
+import { afterEach, describe, expect, test, vi } from 'vitest'
 
 import ESLintConfig from '../../../libs/configs'
 import NodeJSConfig from '../../../libs/configs/main/nodejs'
+import ConfigProxy from '../../../libs/configs/proxy'
 import FormattingConfig from '../../../libs/configs/style/eslint'
 import PrettierConfig from '../../../libs/configs/style/prettier'
 import JestConfig from '../../../libs/configs/test/jest'
 import VitestConfig from '../../../libs/configs/test/vitest'
+import { SUPPORTED_TYPES } from '../../../libs/constants'
+import { baseFixture as eslintBaseFixture } from '../../fixtures/eslint/base'
+import { baseFixture as jestBaseFixture } from '../../fixtures/jest/base'
+import { baseFixture as nodejsBaseFixture } from '../../fixtures/nodejs/base'
+import { baseFixture as prettierBaseFixture } from '../../fixtures/prettier/base'
+import { baseFixture as vitestBaseFixture } from '../../fixtures/vitest/base'
 
 describe('#ConfigProxy', () => {
   afterEach(() => {
