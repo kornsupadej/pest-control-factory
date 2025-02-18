@@ -1,5 +1,11 @@
 # @kornsupadej/pest-control-factory
 
+## 0.1.1
+
+### Patch Changes
+
+- 3378db8: Patch package.json entries, types, links
+
 ## 0.1.0
 
 ### Minor Changes
