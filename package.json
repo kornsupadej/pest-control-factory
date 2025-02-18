@@ -2,7 +2,7 @@
   "name": "@kornsupadej/pest-control-factory",
   "description": "A tool to minimize bug infestation in projects",
   "author": "Kornsupadej Suvarnakasa",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "keywords": [
     "ast",
     "lint",

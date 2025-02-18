@@ -1,5 +1,11 @@
 # @kornsupadej/pest-control-factory
 
+## 0.1.3
+
+### Patch Changes
+
+- 9de6727: Update package.json peerDependencies version
+
 ## 0.1.2
 
 ### Patch Changes
