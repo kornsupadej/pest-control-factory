@@ -12,14 +12,7 @@
   ],
   "license": "MIT",
   "private": false,
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/kornsupadej/pest-control-factory.git"
-  },
-  "homepage": "https://github.com/kornsupadej/pest-control-factory#readme",
   "type": "module",
-  "types": "index.d.ts",
-  "main": "libs/index.js",
   "scripts": {
     "test": "vitest run",
     "test:watch": "vitest",
