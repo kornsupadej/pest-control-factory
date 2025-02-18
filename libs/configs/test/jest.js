@@ -26,12 +26,12 @@ class JestConfig extends ESLintConfig {
     return [
       {
         name: 'pest-control/jest',
+        files: [...GLOB_PATTERNS.ALL_TEST_FILES, ...files],
+        ...(ignores.length && { ignores }),
         languageOptions: {
           globals: jest.environments.globals.globals,
+          ...languageOptions,
         },
-        files: [...GLOB_PATTERNS.ALL_TEST_FILES, ...files],
-        ...(ignores && { ignores }),
-        ...(Object.keys(languageOptions).length && { languageOptions }),
         plugins: {
           jest,
         },

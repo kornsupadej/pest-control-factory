@@ -111,6 +111,7 @@ class PrettierConfig extends ESLintConfig {
           ],
           'import-x/exports-last': 'error',
           'import-x/group-exports': 'error',
+          ...rules,
           ...eslintPluginPrettierRecommended.rules,
           'prettier/prettier': [
             'error',
@@ -123,7 +124,6 @@ class PrettierConfig extends ESLintConfig {
               semi: false,
               arrowParens: 'avoid',
               endOfLine: 'lf',
-              ...rules,
             },
             {
               usePrettierrc: false,

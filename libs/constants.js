@@ -8,3 +8,16 @@ export const GLOB_PATTERNS = {
   ],
   ALL_TEST_FILES: '**/*.?(e2e-){test,spec}.{js,ts}',
 }
+export const SUPPORTED_TYPES = {
+  CJS: 'cjs',
+  ESM: 'esm',
+  NODEJS: 'nodejs',
+  REACT: 'react',
+  NEXTJS: 'nextjs',
+  ANGULAR: 'angular',
+  VUE: 'vue',
+  JEST: 'jest',
+  VITEST: 'vitest',
+  ESLINT: 'eslint',
+  PRETTIER: 'prettier',
+}

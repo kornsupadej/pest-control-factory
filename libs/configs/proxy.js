@@ -9,13 +9,22 @@ import VitestConfig from './test/vitest.js'
 import FormattingConfig from './style/eslint.js'
 import PrettierConfig from './style/prettier.js'
 
+import { SUPPORTED_TYPES } from '../constants.js'
+
 const configClasses = Object.freeze({
   default: ESLintConfig,
-  nodejs: NodeJSConfig,
-  jest: JestConfig,
-  vitest: VitestConfig,
-  eslint: FormattingConfig,
-  prettier: PrettierConfig,
+  [SUPPORTED_TYPES.NODEJS]: NodeJSConfig,
+  [SUPPORTED_TYPES.JEST]: JestConfig,
+  [SUPPORTED_TYPES.VITEST]: VitestConfig,
+  [SUPPORTED_TYPES.ESLINT]: FormattingConfig,
+  [SUPPORTED_TYPES.PRETTIER]: PrettierConfig,
+  /** not supported yet */
+  [SUPPORTED_TYPES.CJS]: ESLintConfig,
+  [SUPPORTED_TYPES.ESM]: ESLintConfig,
+  [SUPPORTED_TYPES.REACT]: ESLintConfig,
+  [SUPPORTED_TYPES.NEXTJS]: ESLintConfig,
+  [SUPPORTED_TYPES.ANGULAR]: ESLintConfig,
+  [SUPPORTED_TYPES.VUE]: ESLintConfig,
 })
 
 class ConfigProxy {
@@ -42,7 +51,7 @@ class ConfigProxy {
    * @return {import('./index')} classInstance
    */
   _resolveModuleInstance() {
-    const supported = Object.keys(configClasses).includes(
+    const supported = [...Object.values(SUPPORTED_TYPES), 'default'].includes(
       this.linterConfig.type
     )
     if (!supported) {

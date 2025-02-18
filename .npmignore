@@ -10,3 +10,5 @@
 CHANGELOG.md
 desktop.ini
 eslint.config.js
+prettier.config.js
+vitest.config.js

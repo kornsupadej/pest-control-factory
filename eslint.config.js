@@ -16,7 +16,10 @@ export default [
   },
   js.configs.recommended,
   {
-    files: ['**/*.test.js'],
+    files: ['tests/**/*.test.js'],
+    languageOptions: {
+      globals: vitest.configs.env.languageOptions.globals,
+    },
     plugins: {
       vitest,
     },

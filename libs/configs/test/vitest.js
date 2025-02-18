@@ -26,12 +26,12 @@ class VitestConfig extends ESLintConfig {
     return [
       {
         name: 'pest-control/vitest',
+        files: [...GLOB_PATTERNS.ALL_TEST_FILES, ...files],
+        ...(ignores.length && { ignores }),
         languageOptions: {
           globals: vitest.environments.env.globals,
+          ...languageOptions,
         },
-        files: [...GLOB_PATTERNS.ALL_TEST_FILES, ...files],
-        ...(ignores && { ignores }),
-        ...(Object.keys(languageOptions).length && { languageOptions }),
         plugins: {
           vitest,
         },

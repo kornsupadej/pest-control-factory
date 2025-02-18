@@ -9,10 +9,10 @@ declare namespace Linter {
 }
 export type LinterTypes =
   | 'cjs'
-  | 'js'
+  | 'esm'
   | 'nodejs'
   | 'react'
-  | 'next'
+  | 'nextjs'
   | 'angular'
   | 'vue'
 export type StyleLinterTypes = 'eslint' | 'prettier' | 'biome'
