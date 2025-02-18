@@ -1,5 +1,11 @@
 # @kornsupadej/pest-control-factory
 
+## 0.1.0
+
+### Minor Changes
+
+- 9a0f0ec: Release Version 0.1.0
+
 ## 0.0.3
 
 ### Patch Changes
