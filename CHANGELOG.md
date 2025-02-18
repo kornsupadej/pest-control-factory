@@ -1,5 +1,11 @@
 # @kornsupadej/pest-control-factory
 
+## 0.1.2
+
+### Patch Changes
+
+- aef0ebc: Organize dependencies in package.json
+
 ## 0.1.1
 
 ### Patch Changes
