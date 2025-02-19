@@ -1,6 +1,7 @@
 import js from '@eslint/js'
 import eslintPluginNode from 'eslint-plugin-n'
 import globals from 'globals'
+import { configs, parser, plugin } from 'typescript-eslint'
 
 import { GLOB_PATTERNS } from '../../constants.js'
 import ESLintConfig from '../index.js'
@@ -21,26 +22,74 @@ class NodeJSConfig extends ESLintConfig {
   /**
    * @private
    * @method
-   * @name _buildTSLintConfig
+   * @name _buildLanguageOptions
    *
-   * @returns {import("eslint").Linter.Config[]}
+   * @returns {import("eslint").Linter.Config}
    */
-  _buildTSLintConfig() {
-    const ts = require('typescript-eslint')
-    return {
-      languageOptions: {
-        parser: ts.parser,
+  _buildLanguageOptions() {
+    const { languageOptions } = this.linterOptions
+    const configOptions = {
+      languageOptions,
+    }
+    Object.assign(configOptions.languageOptions, {
+      globals: {
+        ...(configOptions.languageOptions.globals || {}),
+        ...globals.node,
+      },
+    })
+    if (this.typescript) {
+      Object.assign(configOptions.languageOptions, {
+        parser,
         parserOptions: {
           project: ['tsconfig?(.*).json'],
           projectService: true,
           tsconfigRootDir: process.cwd(),
         },
-      },
-      plugins: {
-        '@typescript-eslint': ts.plugin,
-      },
-      rules: {
-        ...ts.configs.recommendedTypeChecked.rules,
+      })
+    }
+    return configOptions
+  }
+
+  /**
+   * @private
+   * @method
+   * @name _buildPlugins
+   *
+   * @returns {import("eslint").Linter.Config}
+   */
+  _buildPlugins() {
+    const { plugins } = this.linterOptions
+    const configOptions = {}
+    if (Object.keys(plugins).length) {
+      Object.assign(configOptions, {
+        plugins,
+      })
+    }
+    if (this.typescript) {
+      Object.assign(configOptions, {
+        plugins: {
+          ...(configOptions.plugins || {}),
+          '@typescript-eslint': plugin,
+        },
+      })
+    }
+    return configOptions
+  }
+
+  /**
+   * @private
+   * @method
+   * @name _buildRules
+   *
+   * @returns {import("eslint").Linter.RulesRecord}
+   */
+  _buildRules() {
+    const rules = {
+      ...js.configs.recommended.rules,
+    }
+    if (this.typescript) {
+      Object.assign(rules, {
+        ...configs.recommendedTypeChecked.rules,
         '@typescript-eslint/no-misused-promises': [
           'error',
           {
@@ -63,8 +112,9 @@ class NodeJSConfig extends ESLintConfig {
         '@typescript-eslint/no-base-to-string': 'off',
         '@typescript-eslint/unbound-method': 'off',
         '@typescript-eslint/only-throw-error': 'off',
-      },
+      })
     }
+    return rules
   }
 
   /**
@@ -75,25 +125,15 @@ class NodeJSConfig extends ESLintConfig {
    * @returns {import("eslint").Linter.Config}
    */
   _buildLintConfig() {
-    const { files, ignores, languageOptions, rules } = this.linterOptions
-    const tsConfig = this.typescript ? this._buildTSLintConfig() : {}
+    const { files, ignores, rules } = this.linterOptions
     return {
       name: 'pest-control/nodejs',
       files: [GLOB_PATTERNS.ALL_BASE_EXTENSION_FILES, ...files],
       ignores: [...GLOB_PATTERNS.BASIC_IGNORE_PATHS, ...ignores],
-      ...(tsConfig.plugins && { plugins: tsConfig.plugins }),
-      languageOptions: {
-        globals: {
-          ...globals.node,
-        },
-        ...(tsConfig.languageOptions && {
-          ...tsConfig.languageOptions,
-        }),
-        ...languageOptions,
-      },
+      ...this._buildLanguageOptions(),
+      ...this._buildPlugins(),
       rules: {
-        ...js.configs.recommended.rules,
-        ...(tsConfig.rules && { ...tsConfig.rules }),
+        ...this._buildRules(),
         ...rules,
       },
     }

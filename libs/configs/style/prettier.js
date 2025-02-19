@@ -1,5 +1,6 @@
 import eslintPluginImportX from 'eslint-plugin-import-x'
 import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended'
+import { parser } from 'typescript-eslint'
 
 import { GLOB_PATTERNS } from '../../constants.js'
 import ESLintConfig from '../index.js'
@@ -20,17 +21,20 @@ class PrettierConfig extends ESLintConfig {
   /**
    * @private
    * @method
-   * @name _buildTSLintConfig
+   * @name _buildRecommendedConfig
    *
-   * @returns {import("eslint").Linter.Config[]}
+   * @returns {import("eslint").Linter.Config}
    */
-  _buildTSLintConfig() {
-    const ts = require('typescript-eslint')
-    return {
-      languageOptions: {
-        parser: ts.parser,
-      },
+  _buildRecommendedConfig() {
+    const recommendedConfig = {
+      ...eslintPluginPrettierRecommended,
     }
+    if (this.typescript) {
+      Object.assign(recommendedConfig, {
+        ...eslintPluginImportX.flatConfigs.typescript,
+      })
+    }
+    return recommendedConfig
   }
 
   /**
@@ -42,22 +46,127 @@ class PrettierConfig extends ESLintConfig {
    */
   _buildLanguageOptions() {
     const { languageOptions } = this.linterOptions
-    const options = {}
+    const configOptions = {}
     if (Object.keys(languageOptions).length) {
-      Object.assign(options, {
+      Object.assign(configOptions, {
         languageOptions: {
           ...languageOptions,
         },
       })
     }
     if (this.typescript) {
-      Object.assign(options, {
+      Object.assign(configOptions, {
         languageOptions: {
-          ...this._buildTSLintConfig().languageOptions,
+          ...(configOptions.languageOptions || {}),
+          parser,
         },
       })
     }
-    return options
+    Object.assign(configOptions, {
+      languageOptions: {
+        ...(configOptions.languageOptions || {}),
+        ...eslintPluginImportX.flatConfigs.recommended.languageOptions,
+      },
+    })
+    return configOptions
+  }
+
+  /**
+   * @private
+   * @method
+   * @name _buildPlugins
+   *
+   * @returns {import("eslint").Linter.Config}
+   */
+  _buildPlugins() {
+    const { plugins } = this.linterOptions
+    const configOptions = {}
+    if (Object.keys(plugins).length) {
+      Object.assign(configOptions, {
+        plugins: {
+          ...plugins,
+        },
+      })
+    }
+    Object.assign(configOptions, {
+      plugins: {
+        ...(configOptions.plugins || {}),
+        ...eslintPluginImportX.flatConfigs.recommended.plugins,
+        ...eslintPluginPrettierRecommended.plugins,
+      },
+    })
+    return configOptions
+  }
+
+  /**
+   * @private
+   * @method
+   * @name _buildRules
+   *
+   * @returns {import("eslint").Linter.RulesRecord}
+   */
+  _buildRules() {
+    const rules = {
+      ...eslintPluginImportX.flatConfigs.recommended.rules,
+      'no-multiple-empty-lines': [
+        'error',
+        {
+          max: 1,
+          maxEOF: 1,
+          maxBOF: 0,
+        },
+      ],
+      'import-x/first': 'error',
+      'import-x/newline-after-import': [
+        'error',
+        {
+          count: 1,
+          exactCount: true,
+          considerComments: false,
+        },
+      ],
+      'import-x/order': [
+        'error',
+        {
+          alphabetize: {
+            order: 'asc',
+            caseInsensitive: true,
+          },
+          'newlines-between': 'always',
+          groups: ['builtin', 'external', 'parent', 'sibling', 'index'],
+        },
+      ],
+      'import-x/exports-last': 'error',
+      'import-x/group-exports': 'error',
+    }
+    if (this.typescript) {
+      Object.assign(rules, {
+        ...eslintPluginImportX.flatConfigs.typescript.rules,
+      })
+    }
+    Object.assign(rules, {
+      ...eslintPluginPrettierRecommended.rules,
+      'prettier/prettier': [
+        'error',
+        {
+          printWidth: 80,
+          tabWidth: 4,
+          bracketSpacing: true,
+          singleQuote: true,
+          trailingComma: 'es5',
+          semi: false,
+          arrowParens: 'avoid',
+          endOfLine: 'lf',
+        },
+        {
+          usePrettierrc: false,
+          fileInfoOptions: {
+            withNodeModules: false,
+          },
+        },
+      ],
+    })
+    return rules
   }
 
   /**
@@ -68,69 +177,15 @@ class PrettierConfig extends ESLintConfig {
     const { files, ignores, rules } = this.linterOptions
     return [
       {
-        ...eslintPluginPrettierRecommended,
-        ...(this.typescript && eslintPluginImportX.flatConfigs.typescript),
+        ...this._buildRecommendedConfig(),
         name: 'pest-control/prettier',
         files: [GLOB_PATTERNS.ALL_BASE_EXTENSION_FILES, ...files],
         ignores: [...GLOB_PATTERNS.BASIC_IGNORE_PATHS, ...ignores],
         ...this._buildLanguageOptions(),
-        plugins: {
-          ...eslintPluginImportX.flatConfigs.recommended.plugins,
-          ...eslintPluginPrettierRecommended.plugins,
-        },
+        ...this._buildPlugins(),
         rules: {
-          ...eslintPluginImportX.configs.recommended.rules,
-          'no-multiple-empty-lines': [
-            'error',
-            {
-              max: 1,
-              maxEOF: 1,
-              maxBOF: 0,
-            },
-          ],
-          'import-x/first': 'error',
-          'import-x/newline-after-import': [
-            'error',
-            {
-              count: 1,
-              exactCount: true,
-              considerComments: false,
-            },
-          ],
-          'import-x/order': [
-            'error',
-            {
-              alphabetize: {
-                order: 'asc',
-                caseInsensitive: true,
-              },
-              'newlines-between': 'always',
-              groups: ['builtin', 'external', 'parent', 'sibling', 'index'],
-            },
-          ],
-          'import-x/exports-last': 'error',
-          'import-x/group-exports': 'error',
+          ...this._buildRules(),
           ...rules,
-          ...eslintPluginPrettierRecommended.rules,
-          'prettier/prettier': [
-            'error',
-            {
-              printWidth: 80,
-              tabWidth: 4,
-              bracketSpacing: true,
-              singleQuote: true,
-              trailingComma: 'es5',
-              semi: false,
-              arrowParens: 'avoid',
-              endOfLine: 'lf',
-            },
-            {
-              usePrettierrc: false,
-              fileInfoOptions: {
-                withNodeModules: false,
-              },
-            },
-          ],
         },
       },
     ]

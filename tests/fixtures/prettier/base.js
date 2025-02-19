@@ -9,6 +9,11 @@ export const baseFixture = [
     name: 'pest-control/prettier',
     files: [GLOB_PATTERNS.ALL_BASE_EXTENSION_FILES],
     ignores: [...GLOB_PATTERNS.BASIC_IGNORE_PATHS],
+    languageOptions: {
+      ecmaVersion: 2018,
+      sourceType: 'module',
+    },
+
     plugins: {
       ...eslintPluginImportX.flatConfigs.recommended.plugins,
       ...eslintPluginPrettierRecommended.plugins,

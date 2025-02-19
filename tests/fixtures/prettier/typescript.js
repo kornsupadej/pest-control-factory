@@ -1,6 +1,6 @@
 import eslintPluginImportX from 'eslint-plugin-import-x'
 import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended'
-import ts from 'typescript-eslint'
+import { parser } from 'typescript-eslint'
 
 import { GLOB_PATTERNS } from '../../../libs/constants'
 
@@ -12,14 +12,16 @@ export const typescriptFixture = [
     files: [GLOB_PATTERNS.ALL_BASE_EXTENSION_FILES],
     ignores: [...GLOB_PATTERNS.BASIC_IGNORE_PATHS],
     languageOptions: {
-      parser: ts.parser,
+      parser,
+      ecmaVersion: 2018,
+      sourceType: 'module',
     },
     plugins: {
       ...eslintPluginImportX.flatConfigs.recommended.plugins,
       ...eslintPluginPrettierRecommended.plugins,
     },
     rules: {
-      ...eslintPluginImportX.configs.recommended.rules,
+      ...eslintPluginImportX.flatConfigs.recommended.rules,
       'no-multiple-empty-lines': [
         'error',
         {
@@ -50,6 +52,7 @@ export const typescriptFixture = [
       ],
       'import-x/exports-last': 'error',
       'import-x/group-exports': 'error',
+      ...eslintPluginImportX.flatConfigs.typescript.rules,
       ...eslintPluginPrettierRecommended.rules,
       'prettier/prettier': [
         'error',

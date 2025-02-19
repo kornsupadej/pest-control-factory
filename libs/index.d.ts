@@ -4,7 +4,7 @@ declare namespace Linter {
   export type RulesRecord = import('eslint').Linter.RulesRecord
   export type ConfigOptions = Pick<
     import('eslint').Linter.Config,
-    'files' | 'ignores' | 'languageOptions' | 'rules'
+    'files' | 'ignores' | 'languageOptions' | 'plugins' | 'rules'
   >
 }
 export type LinterTypes =

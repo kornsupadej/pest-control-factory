@@ -16,6 +16,9 @@ export const extendedFixture = [
       },
       foo: 'foo',
     },
+    plugins: {
+      baz: 'qux',
+    },
     rules: {
       ...js.configs.recommended.rules,
       bar: 'bar',

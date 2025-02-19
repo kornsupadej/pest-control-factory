@@ -40,8 +40,6 @@
   },
   "dependencies": {
     "@eslint/js": "^9.19.0",
-    "@typescript-eslint/eslint-plugin": "^8.24.1",
-    "@typescript-eslint/parser": "^8.24.1",
     "@vitest/eslint-plugin": "^1.1.25",
     "chalk": "^5.4.1",
     "eslint": "^9.19.0",
@@ -65,11 +63,9 @@
     "vitest": "^3.0.5"
   },
   "peerDependencies": {
-    "@eslint/js": ">=9.19.0",
-    "@typescript-eslint/eslint-plugin": "^8.24.1",
-    "@typescript-eslint/parser": "^8.24.1",
+    "@eslint/js": "^9.0.0",
     "@vitest/eslint-plugin": "^1.1.25",
-    "eslint": ">=9.19.0",
+    "eslint": "^9.0.0",
     "eslint-config-prettier": "^10.0.1",
     "eslint-plugin-import-x": "^4.6.1",
     "eslint-plugin-jest": "^28.11.0",
@@ -80,12 +76,6 @@
     "typescript-eslint": "^8.24.0"
   },
   "peerDependenciesMeta": {
-    "@typescript-eslint/eslint-plugin": {
-      "optional": true
-    },
-    "@typescript-eslint/parser": {
-      "optional": true
-    },
     "@vitest/eslint-plugin": {
       "optional": true
     },

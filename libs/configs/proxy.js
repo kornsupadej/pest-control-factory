@@ -37,6 +37,7 @@ class ConfigProxy {
         files: linterConfig?.options?.files || [],
         ignores: linterConfig?.options?.ignores || [],
         languageOptions: linterConfig?.options?.languageOptions || {},
+        plugins: linterConfig?.options?.plugins || {},
         rules: linterConfig?.options?.rules || {},
       },
     }

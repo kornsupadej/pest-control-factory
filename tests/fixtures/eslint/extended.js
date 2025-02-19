@@ -10,6 +10,12 @@ export const extendedFixture = [
     ignores: [...GLOB_PATTERNS.BASIC_IGNORE_PATHS, '**/*.testignorepathext'],
     languageOptions: {
       foo: 'bar',
+      ecmaVersion: 2018,
+      sourceType: 'module',
+    },
+    plugins: {
+      baz: 'qux',
+      ...eslintPluginImportX.flatConfigs.recommended.plugins,
     },
     rules: {
       ...eslintPluginImportX.flatConfigs.recommended.rules,
