@@ -113,9 +113,9 @@ Create a [ESLint Config File](https://eslint.org/docs/latest/use/configure/confi
 
 | Type | Peer dependencies| Typescript |
 | :-   | :- | :- |
-| `Node.js` |[eslint-plugin-n](https://www.npmjs.com/package/eslint-plugin-n)|[typescript-eslint](https://www.npmjs.com/package/typescript-eslint)|
-|`ESLint`|[eslint-plugin-import-x](https://www.npmjs.com/package/eslint-plugin-import-x)|[eslint-import-resolver-typescript](https://www.npmjs.com/package/eslint-import-resolver-typescript)|
-|`Prettier`|[eslint-plugin-import-x](https://www.npmjs.com/package/eslint-plugin-import-x), [eslint-config-prettier](https://www.npmjs.com/package/eslint-config-prettier), [eslint-plugin-prettier](https://www.npmjs.com/package/eslint-plugin-prettier)|[eslint-import-resolver-typescript](https://www.npmjs.com/package/eslint-import-resolver-typescript)|
+| `Node.js` |[eslint-plugin-n](https://www.npmjs.com/package/eslint-plugin-n)|[typescript-eslint](https://www.npmjs.com/package/typescript-eslint), [@typescript-eslint/eslint-plugin](https://www.npmjs.com/package/@typescript-eslint/eslint-plugin), [@typescript-eslint/parser](https://www.npmjs.com/package/@typescript-eslint/parser)|
+|`ESLint`|[eslint-plugin-import-x](https://www.npmjs.com/package/eslint-plugin-import-x)|[eslint-import-resolver-typescript](https://www.npmjs.com/package/eslint-import-resolver-typescript), [@typescript-eslint/eslint-plugin](https://www.npmjs.com/package/@typescript-eslint/eslint-plugin), [@typescript-eslint/parser](https://www.npmjs.com/package/@typescript-eslint/parser)|
+|`Prettier`|[eslint-plugin-import-x](https://www.npmjs.com/package/eslint-plugin-import-x), [eslint-config-prettier](https://www.npmjs.com/package/eslint-config-prettier), [eslint-plugin-prettier](https://www.npmjs.com/package/eslint-plugin-prettier)|[eslint-import-resolver-typescript](https://www.npmjs.com/package/eslint-import-resolver-typescript), [@typescript-eslint/eslint-plugin](https://www.npmjs.com/package/@typescript-eslint/eslint-plugin), [@typescript-eslint/parser](https://www.npmjs.com/package/@typescript-eslint/parser)|
 |`Jest`|[eslint-plugin-jest](https://www.npmjs.com/package/eslint-plugin-jest)| - |
 |`Vitest`|[@vitest/eslint-plugin](https://github.com/vitest-dev/eslint-plugin-vitest)| - |
 
