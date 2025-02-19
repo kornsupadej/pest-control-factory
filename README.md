@@ -12,14 +12,14 @@ Powered by:
 - [Typescript-ESLint](https://typescript-eslint.io/getting-started/)
 
 
-## Installation
+## :gear: Installation
 
 
 ```bash
   npm i -D @kornsupadej/pest-control-factory
 ```
     
-## API Reference
+## :open_book: API Reference
 
 *Formulate pesticide(s) suitable for your project.*
 
@@ -45,7 +45,7 @@ Powered by:
 
 
 
-## Usage Example
+## :scroll: Usage Example
 
 *If you want to use the out of the box settings on each of the tools, just provide the types without any options as shown below:*
 
@@ -109,22 +109,20 @@ Create a [ESLint Config File](https://eslint.org/docs/latest/use/configure/confi
 ```
 
 
-## Dependencies Reference
+## :books: Dependencies Reference
 
-| Type | Peer dependencies| Typescript |
-| :-   | :- | :- |
-| `Node.js` |[eslint-plugin-n](https://www.npmjs.com/package/eslint-plugin-n)|[typescript-eslint](https://www.npmjs.com/package/typescript-eslint), [@typescript-eslint/eslint-plugin](https://www.npmjs.com/package/@typescript-eslint/eslint-plugin), [@typescript-eslint/parser](https://www.npmjs.com/package/@typescript-eslint/parser)|
-|`ESLint`|[eslint-plugin-import-x](https://www.npmjs.com/package/eslint-plugin-import-x)|[eslint-import-resolver-typescript](https://www.npmjs.com/package/eslint-import-resolver-typescript), [@typescript-eslint/eslint-plugin](https://www.npmjs.com/package/@typescript-eslint/eslint-plugin), [@typescript-eslint/parser](https://www.npmjs.com/package/@typescript-eslint/parser)|
-|`Prettier`|[eslint-plugin-import-x](https://www.npmjs.com/package/eslint-plugin-import-x), [eslint-config-prettier](https://www.npmjs.com/package/eslint-config-prettier), [eslint-plugin-prettier](https://www.npmjs.com/package/eslint-plugin-prettier)|[eslint-import-resolver-typescript](https://www.npmjs.com/package/eslint-import-resolver-typescript), [@typescript-eslint/eslint-plugin](https://www.npmjs.com/package/@typescript-eslint/eslint-plugin), [@typescript-eslint/parser](https://www.npmjs.com/package/@typescript-eslint/parser)|
-|`Jest`|[eslint-plugin-jest](https://www.npmjs.com/package/eslint-plugin-jest)| - |
-|`Vitest`|[@vitest/eslint-plugin](https://github.com/vitest-dev/eslint-plugin-vitest)| - |
+| Type | Peer dependencies| Typescript | Ext. plugins support
+| :-   | :- | :- | :- |
+| `Node.js` |[eslint-plugin-n](https://www.npmjs.com/package/eslint-plugin-n)|[typescript-eslint](https://www.npmjs.com/package/typescript-eslint)| :white_check_mark:|
+|`ESLint`|[eslint-plugin-import-x](https://www.npmjs.com/package/eslint-plugin-import-x)|[eslint-import-resolver-typescript](https://www.npmjs.com/package/eslint-import-resolver-typescript)|:white_check_mark:|
+|`Prettier`|[eslint-plugin-import-x](https://www.npmjs.com/package/eslint-plugin-import-x), [eslint-config-prettier](https://www.npmjs.com/package/eslint-config-prettier), [eslint-plugin-prettier](https://www.npmjs.com/package/eslint-plugin-prettier)|[eslint-import-resolver-typescript](https://www.npmjs.com/package/eslint-import-resolver-typescript)|:white_check_mark:|
+|`Jest`|[eslint-plugin-jest](https://www.npmjs.com/package/eslint-plugin-jest)| - |:x:|
+|`Vitest`|[@vitest/eslint-plugin](https://github.com/vitest-dev/eslint-plugin-vitest)| - |:x:|
 
 
-## Roadmap
+## :rainbow: Roadmap
 
-- Accept external plugins via `options.plugins`
-
-- Additional frameworks support
+- Additional Frameworks Support
     - VanillaJS (CJS & ESM)
     - React
     - NextJS
