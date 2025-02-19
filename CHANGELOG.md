@@ -1,5 +1,12 @@
 # @kornsupadej/pest-control-factory
 
+## 0.2.0
+
+### Minor Changes
+
+- 32ccf39: Support external/additional plugins injection via options
+- 5bbc11f: Support plugins injection via option
+
 ## 0.1.3
 
 ### Patch Changes
