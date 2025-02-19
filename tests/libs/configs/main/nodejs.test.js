@@ -5,7 +5,7 @@ import { baseFixture } from '../../../fixtures/nodejs/base'
 import { extendedFixture } from '../../../fixtures/nodejs/extended'
 import { typescriptFixture } from '../../../fixtures/nodejs/typescript'
 
-describe.only('#NodeJSConfig', () => {
+describe('#NodeJSConfig', () => {
   test('return base result correctly', () => {
     const instance = new NodeJSConfig(
       {
