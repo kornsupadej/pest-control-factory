@@ -1,5 +1,11 @@
 # @kornsupadej/pest-control-factory
 
+## 0.2.1
+
+### Patch Changes
+
+- 49c02eb: Patch refactor config sections merge to reduce potential error + Util func
+
 ## 0.2.0
 
 ### Minor Changes
