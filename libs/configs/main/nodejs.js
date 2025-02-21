@@ -1,9 +1,12 @@
 import js from '@eslint/js'
 import eslintPluginNode from 'eslint-plugin-n'
 import globals from 'globals'
+import mergeDeep from 'merge-deep'
+import mixinDeep from 'mixin-deep'
 import { configs, parser, plugin } from 'typescript-eslint'
 
 import { GLOB_PATTERNS } from '../../constants.js'
+import { isEmpty } from '../../utils/is-empty.js'
 import ESLintConfig from '../index.js'
 
 /**
@@ -27,18 +30,12 @@ class NodeJSConfig extends ESLintConfig {
    * @returns {import("eslint").Linter.Config}
    */
   _buildLanguageOptions() {
-    const { languageOptions } = this.linterOptions
-    const configOptions = {
-      languageOptions,
-    }
-    Object.assign(configOptions.languageOptions, {
-      globals: {
-        ...(configOptions.languageOptions.globals || {}),
-        ...globals.node,
-      },
-    })
+    const languageOptions = mergeDeep(
+      { globals: globals.node },
+      this.linterOptions.languageOptions
+    )
     if (this.typescript) {
-      Object.assign(configOptions.languageOptions, {
+      mixinDeep(languageOptions, {
         parser,
         parserOptions: {
           project: ['tsconfig?(.*).json'],
@@ -47,7 +44,7 @@ class NodeJSConfig extends ESLintConfig {
         },
       })
     }
-    return configOptions
+    return { languageOptions }
   }
 
   /**
@@ -60,15 +57,14 @@ class NodeJSConfig extends ESLintConfig {
   _buildPlugins() {
     const { plugins } = this.linterOptions
     const configOptions = {}
-    if (Object.keys(plugins).length) {
+    if (!isEmpty(plugins)) {
       Object.assign(configOptions, {
         plugins,
       })
     }
     if (this.typescript) {
-      Object.assign(configOptions, {
+      mixinDeep(configOptions, {
         plugins: {
-          ...(configOptions.plugins || {}),
           '@typescript-eslint': plugin,
         },
       })

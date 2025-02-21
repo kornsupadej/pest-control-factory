@@ -36,12 +36,19 @@
     "prepare": "husky"
   },
   "lint-staged": {
-    "*.{js,mjs,cjs,ts,mts,cts}": "pnpm lint"
+    "*.{js,mjs,cjs,ts,mts,cts}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,yml,yaml}": [
+      "prettier --write"
+    ]
   },
   "dependencies": {
     "@eslint/js": "^9.19.0",
     "@vitest/eslint-plugin": "^1.1.25",
     "chalk": "^5.4.1",
+    "clone-deep": "^4.0.1",
     "eslint": "^9.19.0",
     "eslint-config-prettier": "^10.0.1",
     "eslint-import-resolver-typescript": "^3.8.0",
@@ -50,8 +57,11 @@
     "eslint-plugin-n": "^17.15.1",
     "eslint-plugin-prettier": "^5.2.3",
     "globals": "^15.14.0",
+    "merge-deep": "^3.0.3",
+    "mixin-deep": "^2.0.1",
     "typescript": "^5.7.3",
-    "typescript-eslint": "^8.24.0"
+    "typescript-eslint": "^8.24.0",
+    "url-or-path": "^2.3.2"
   },
   "devDependencies": {
     "@changesets/cli": "^2.27.12",
@@ -65,10 +75,14 @@
   "peerDependencies": {
     "@eslint/js": "^9.0.0",
     "eslint": "^9.0.0",
-    "typescript": "^5.0.0"
+    "typescript": "^5.0.0",
+    "globals": "^15.14.0"
   },
   "peerDependenciesMeta": {
     "typescript": {
+      "optional": true
+    },
+    "globals": {
       "optional": true
     }
   },

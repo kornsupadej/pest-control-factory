@@ -1,7 +1,7 @@
 
 # :no_entry_sign: :bug: pest-control-factory
 
-![node](https://badgen.net/badge/node.js/v18.x/green/) ![npm](https://badgen.net/badge/eslint/v9.x)
+![node](https://badgen.net/badge/node.js/v18.x/green/) ![npm](https://badgen.net/badge/eslint/v9.x) ![typescript](https://badgen.net/badge/typescript/v5.x)
 
 :toolbox: A toolbox to minimize bug infestation in projects with your favorite tools!
 

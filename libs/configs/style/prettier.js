@@ -1,5 +1,7 @@
 import eslintPluginImportX from 'eslint-plugin-import-x'
 import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended'
+import mergeDeep from 'merge-deep'
+import mixinDeep from 'mixin-deep'
 import { parser } from 'typescript-eslint'
 
 import { GLOB_PATTERNS } from '../../constants.js'
@@ -26,13 +28,12 @@ class PrettierConfig extends ESLintConfig {
    * @returns {import("eslint").Linter.Config}
    */
   _buildRecommendedConfig() {
-    const recommendedConfig = {
-      ...eslintPluginPrettierRecommended,
-    }
+    const recommendedConfig = mergeDeep(
+      eslintPluginImportX.flatConfigs.recommended,
+      eslintPluginPrettierRecommended
+    )
     if (this.typescript) {
-      Object.assign(recommendedConfig, {
-        ...eslintPluginImportX.flatConfigs.typescript,
-      })
+      mixinDeep(recommendedConfig, eslintPluginImportX.flatConfigs.typescript)
     }
     return recommendedConfig
   }
@@ -42,33 +43,19 @@ class PrettierConfig extends ESLintConfig {
    * @method
    * @name _buildLanguageOptions
    *
-   * @returns {import("eslint").Linter.Config[]}
+   * @returns {import("eslint").Linter.Config} languageOptionsConfig
    */
   _buildLanguageOptions() {
-    const { languageOptions } = this.linterOptions
-    const configOptions = {}
-    if (Object.keys(languageOptions).length) {
-      Object.assign(configOptions, {
-        languageOptions: {
-          ...languageOptions,
-        },
-      })
-    }
+    const languageOptions = mergeDeep(
+      eslintPluginImportX.flatConfigs.recommended.languageOptions,
+      this.linterOptions.languageOptions
+    )
     if (this.typescript) {
-      Object.assign(configOptions, {
-        languageOptions: {
-          ...(configOptions.languageOptions || {}),
-          parser,
-        },
+      mixinDeep(languageOptions, {
+        parser,
       })
     }
-    Object.assign(configOptions, {
-      languageOptions: {
-        ...(configOptions.languageOptions || {}),
-        ...eslintPluginImportX.flatConfigs.recommended.languageOptions,
-      },
-    })
-    return configOptions
+    return { languageOptions }
   }
 
   /**
@@ -80,21 +67,13 @@ class PrettierConfig extends ESLintConfig {
    */
   _buildPlugins() {
     const { plugins } = this.linterOptions
-    const configOptions = {}
-    if (Object.keys(plugins).length) {
-      Object.assign(configOptions, {
-        plugins: {
-          ...plugins,
-        },
-      })
-    }
-    Object.assign(configOptions, {
+    let configOptions = {
       plugins: {
-        ...(configOptions.plugins || {}),
         ...eslintPluginImportX.flatConfigs.recommended.plugins,
         ...eslintPluginPrettierRecommended.plugins,
+        ...plugins,
       },
-    })
+    }
     return configOptions
   }
 

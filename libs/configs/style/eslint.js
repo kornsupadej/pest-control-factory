@@ -1,4 +1,6 @@
 import eslintPluginImportX from 'eslint-plugin-import-x'
+import mergeDeep from 'merge-deep'
+import mixinDeep from 'mixin-deep'
 import { parser } from 'typescript-eslint'
 
 import { GLOB_PATTERNS } from '../../constants.js'
@@ -29,9 +31,7 @@ class FormattingConfig extends ESLintConfig {
       ...eslintPluginImportX.flatConfigs.recommended,
     }
     if (this.typescript) {
-      Object.assign(recommendedConfig, {
-        ...eslintPluginImportX.flatConfigs.typescript,
-      })
+      mixinDeep(recommendedConfig, eslintPluginImportX.flatConfigs.typescript)
     }
     return recommendedConfig
   }
@@ -44,30 +44,16 @@ class FormattingConfig extends ESLintConfig {
    * @returns {import("eslint").Linter.Config}
    */
   _buildLanguageOptions() {
-    const { languageOptions } = this.linterOptions
-    const configOptions = {}
-    if (Object.keys(languageOptions).length) {
-      Object.assign(configOptions, {
-        languageOptions: {
-          ...languageOptions,
-        },
-      })
-    }
+    const languageOptions = mergeDeep(
+      eslintPluginImportX.flatConfigs.recommended.languageOptions,
+      this.linterOptions.languageOptions
+    )
     if (this.typescript) {
-      Object.assign(configOptions, {
-        languageOptions: {
-          ...(configOptions.languageOptions || {}),
-          parser,
-        },
+      mixinDeep(languageOptions, {
+        parser,
       })
     }
-    Object.assign(configOptions, {
-      languageOptions: {
-        ...(configOptions.languageOptions || {}),
-        ...eslintPluginImportX.flatConfigs.recommended.languageOptions,
-      },
-    })
-    return configOptions
+    return { languageOptions }
   }
 
   /**
@@ -79,14 +65,11 @@ class FormattingConfig extends ESLintConfig {
    */
   _buildPlugins() {
     const { plugins } = this.linterOptions
-    const configOptions = {}
-    if (Object.keys(plugins).length) {
-      Object.assign(configOptions, {
-        plugins: {
-          ...plugins,
-          ...eslintPluginImportX.flatConfigs.recommended.plugins,
-        },
-      })
+    const configOptions = {
+      plugins: {
+        ...eslintPluginImportX.flatConfigs.recommended.plugins,
+        ...plugins,
+      },
     }
     return configOptions
   }
